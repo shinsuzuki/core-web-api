@@ -17,6 +17,7 @@ namespace mvc_api
             builder.Services.ConfigureAuthentication();
             builder.Services.ConfigureAuthorization();
             builder.Services.ConfigureApiVersioning();
+            builder.Services.ConfigureFilter();
             builder.Services.ConfigureSwagger();
 
 

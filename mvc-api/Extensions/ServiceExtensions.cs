@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
+using mvc_api.Filter;
 
 namespace mvc_api.Extensions
 {
@@ -8,7 +9,8 @@ namespace mvc_api.Extensions
         /// <summary>
         /// CORS設定
         /// </summary>
-        public static void ConfigureCors(this IServiceCollection services) {
+        public static void ConfigureCors(this IServiceCollection services) 
+        {
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
@@ -20,6 +22,7 @@ namespace mvc_api.Extensions
 
             });
         }
+
 
         /// <summary>
         /// 認証設定
@@ -57,17 +60,22 @@ namespace mvc_api.Extensions
         /// <summary>
         /// APIバージョン管理
         /// </summary>
-        public static void ConfigureApiVersioning(this IServiceCollection services) =>
+        public static void ConfigureApiVersioning(this IServiceCollection services)
+        {
+
             services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;
                 options.DefaultApiVersion = new Asp.Versioning.ApiVersion(1, 0);
             });
+        }
+
 
         /// <summary>
         /// Swagger設定
         /// </summary>
-        public static void ConfigureSwagger(this IServiceCollection services) =>
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -77,9 +85,18 @@ namespace mvc_api.Extensions
                     Description = "テスト用プロジェクトサンプルAPI",
                 });
             });
+        }
 
-
-
+        /// <summary>
+        /// フィルター設定
+        /// </summary>
+        public static void ConfigureFilter(this IServiceCollection services)
+        {
+            services.AddControllers(config =>
+            {
+                config.Filters.Add(new GlobalActionFilter());
+            });
+        }
 
         ///// <summary>
         ///// IIS設定

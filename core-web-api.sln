@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minmal-api", "Minmal-api\Minmal-api.csproj", "{A5BE787E-EBCB-4E92-AB73-AE2DA708B120}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvc-api", "mvc-api\mvc-api.csproj", "{FE1B963F-AED2-4675-9981-2E5F2ED8832E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console1", "Console1\Console1.csproj", "{D13D4D6C-94D5-402F-BCEB-43B5D9AE085D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5BE787E-EBCB-4E92-AB73-AE2DA708B120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BE787E-EBCB-4E92-AB73-AE2DA708B120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BE787E-EBCB-4E92-AB73-AE2DA708B120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BE787E-EBCB-4E92-AB73-AE2DA708B120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE1B963F-AED2-4675-9981-2E5F2ED8832E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE1B963F-AED2-4675-9981-2E5F2ED8832E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE1B963F-AED2-4675-9981-2E5F2ED8832E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE1B963F-AED2-4675-9981-2E5F2ED8832E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D13D4D6C-94D5-402F-BCEB-43B5D9AE085D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D13D4D6C-94D5-402F-BCEB-43B5D9AE085D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D13D4D6C-94D5-402F-BCEB-43B5D9AE085D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D13D4D6C-94D5-402F-BCEB-43B5D9AE085D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2580765F-B44A-4216-A9F2-248173EB74DB}
+	EndGlobalSection
+EndGlobal

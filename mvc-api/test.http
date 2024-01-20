@@ -1,0 +1,45 @@
+﻿GET https://localhost:7055/api/v1/WeatherForecast HTTP/1.1
+
+###
+
+POST https://localhost:7055/api/v1/Account/Login HTTP/1.1
+Content-Type: application/json
+
+{
+    "login_name": "sato_xxxxxxxxxxxxxx",
+    "password": "password_xxxxxxxxxxxxxxxxxxxxx"
+}
+
+###
+
+Get https://localhost:7055/api/v1/Hoge/NoRoleHTTP/1.1
+
+###
+
+Get https://localhost:7055/api/v1/Hoge/AdminRole HTTP/1.1
+
+###
+
+Get https://localhost:7055/api/v1/Hoge/AnotherRole HTTP/1.1
+
+###
+
+Get https://localhost:7055/api/v1/Hoge/CheckParams
+    ?name=sato
+    &city=tokyo
+
+###
+
+Get https://localhost:7055/api/v1/Hoge/CheckAdminPolicy
+
+
+###
+
+Get https://localhost:7055/api/v1/Hoge/Person
+
+
+
+
+
+
+

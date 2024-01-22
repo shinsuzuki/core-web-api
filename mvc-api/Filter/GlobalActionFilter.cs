@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using mvc_api.Util.Logger;
@@ -18,21 +19,21 @@ namespace mvc_api.Filter
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
-            var controllerName = controllerActionDescriptor!.ControllerName;
-            var actionName = controllerActionDescriptor!.ActionName;
-            var userName = context.HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
-            _logger.LogDebug($"{controllerName},{actionName},{userName},OnActionExecuting");
+            _logger.LogDebug(this.AccessInfo(context) + "OnActionExecuting");
         }
 
         public void OnActionExecuted(ActionExecutedContext context)
+        {
+            _logger.LogDebug(this.AccessInfo(context) + "OnActionExecuted");
+        }
+
+        private string AccessInfo(FilterContext context)
         {
             var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
             var controllerName = controllerActionDescriptor!.ControllerName;
             var actionName = controllerActionDescriptor!.ActionName;
             var userName = context.HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
-            _logger.LogDebug($"{controllerName},{actionName},{userName},OnActionExecuted");
+            return $"Controller={controllerName},Action={actionName},User={userName},";
         }
-
     }
 }

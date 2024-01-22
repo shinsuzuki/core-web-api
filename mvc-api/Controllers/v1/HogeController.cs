@@ -7,6 +7,7 @@ using mvc_api.Models.Response;
 using mvc_api.Util.Logger;
 using mvc_api.Filter;
 using System.Xml.Linq;
+using System.Security.Claims;
 
 namespace mvc_api.Controllers.v1
 {
@@ -30,14 +31,14 @@ namespace mvc_api.Controllers.v1
         [Authorize(Roles = "AnotherRole")]
         public IActionResult AnotherRole()
         {
-            _logger.LogDebug("Hoge ====> AnotherRole" + _configuration["MyTest:Value"]);
+            _logger.LogDebug(this.ActionInfo() + "Hoge ====> AnotherRole" + _configuration["MyTest:Value"]);
             return Ok();
         }
 
         [HttpGet("NoRole")]
         public IActionResult NoRole()
         {
-            _logger.LogDebug("Hoge ====> NoRole");
+            _logger.LogDebug(this.ActionInfo() + "Hoge ====> NoRole");
             return Ok();
         }
 
@@ -45,14 +46,14 @@ namespace mvc_api.Controllers.v1
         [Authorize(Roles = "admin")]
         public IActionResult AdminOnly()
         {
-            _logger.LogDebug("Hoge ====> AdminOnly");
+            _logger.LogDebug(this.ActionInfo() + "Hoge ====> AdminOnly");
             return Ok();
         }
 
         [HttpGet("CheckParams")]
         public IActionResult CheckParams(string name, string city)
         {
-            _logger.LogDebug($"Hoge ====> CheckParams, {name} - {city}");
+            _logger.LogDebug(this.ActionInfo() + $"Hoge ====> CheckParams, {name} - {city}");
             return Ok();
         }
 
@@ -60,7 +61,7 @@ namespace mvc_api.Controllers.v1
         [HttpGet("CheckAdminPolicy")]
         public IActionResult CheckAdminPolicy()
         {
-            _logger.LogDebug($"Hoge ====> CheckAdminPolicy");
+            _logger.LogDebug(this.ActionInfo() + "Hoge ====> CheckAdminPolicy");
             return Ok();
         }
 

@@ -7,6 +7,7 @@ using Asp.Versioning;
 using mvc_api.Models.Request;
 using mvc_api.Util.Logger;
 using mvc_api.Filter;
+using mvc_api.Base;
 
 namespace mvc_api.Controllers.v1
 {
@@ -15,7 +16,7 @@ namespace mvc_api.Controllers.v1
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [TypeFilter(typeof(GlobalExceptionFilter))]
-    public class AccountController : ControllerBase
+    public class AccountController : ApiControllerBase
     {
         private readonly ILoggerManager _logger;
 
@@ -29,6 +30,8 @@ namespace mvc_api.Controllers.v1
         //public async Task<IActionResult> Login(string loginName, string password)
         public async Task<IActionResult> Login(User? user)
         {
+            _logger.LogDebug(this.ActionInfo() + "login");
+
             //ログイン認証判定
             if (true)
             {
@@ -57,6 +60,7 @@ namespace mvc_api.Controllers.v1
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
+            _logger.LogDebug(this.ActionInfo() + "logout");
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
         }

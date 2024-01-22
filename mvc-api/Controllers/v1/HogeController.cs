@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mvc_api.Base;
 using mvc_api.Models.Response;
+using mvc_api.Util.Logger;
 
 namespace mvc_api.Controllers.v1
 {
@@ -14,10 +15,12 @@ namespace mvc_api.Controllers.v1
     {
         private readonly IConfiguration _configuration;
 
+        private readonly ILoggerManager _logger;
 
-        public HogeController(IConfiguration configuration)
+        public HogeController(IConfiguration configuration, ILoggerManager logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpGet("AnotherRole")]

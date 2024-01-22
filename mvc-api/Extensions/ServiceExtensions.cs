@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
 using mvc_api.Filter;
+using mvc_api.Util.Logger;
+using NLog;
 
 namespace mvc_api.Extensions
 {
@@ -92,11 +94,23 @@ namespace mvc_api.Extensions
         /// </summary>
         public static void ConfigureFilter(this IServiceCollection services)
         {
+            var provider = services.BuildServiceProvider();
+            var loggerManager = provider.GetRequiredService<ILoggerManager>();
+
             services.AddControllers(config =>
             {
-                config.Filters.Add(new GlobalActionFilter());
+                config.Filters.Add(new GlobalActionFilter(loggerManager));
             });
         }
+
+        /// <summary>
+        /// ロガー設定
+        /// </summary>
+        public static void ConfigureLogger(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
+
 
         ///// <summary>
         ///// IIS設定
@@ -107,11 +121,6 @@ namespace mvc_api.Extensions
 
         //    });
 
-        ///// <summary>
-        ///// ロガー設定
-        ///// </summary>
-        //public static void ConfigureLoggerService(this IServiceCollection services) =>
-        //    services.AddSingleton<ILoggerManager, LoggerManager>();
 
         ///// <summary>
         ///// リポジトリ設定

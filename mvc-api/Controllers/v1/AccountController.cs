@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Asp.Versioning;
 using mvc_api.Models.Request;
+using mvc_api.Util.Logger;
 
 namespace mvc_api.Controllers.v1
 {
@@ -14,6 +15,13 @@ namespace mvc_api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AccountController : ControllerBase
     {
+        private readonly ILoggerManager _logger;
+
+        public AccountController(ILoggerManager logger)
+        {
+            _logger = logger;   
+        }
+
         [AllowAnonymous]
         [HttpPost("Login")]
         //public async Task<IActionResult> Login(string loginName, string password)

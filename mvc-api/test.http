@@ -6,13 +6,13 @@ POST https://localhost:7055/api/v1/Account/Login HTTP/1.1
 Content-Type: application/json
 
 {
-    "login_name": "sato_ngword",
-    "password": "password_bakaword"
+    "login_name": "sato",
+    "password": "password"
 }
 
 ###
 
-Get https://localhost:7055/api/v1/Hoge/NoRoleHTTP/1.1
+Get https://localhost:7055/api/v1/Hoge/NoRole HTTP/1.1
 
 ###
 

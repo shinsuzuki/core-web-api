@@ -13,6 +13,7 @@ namespace mvc_api
             // service
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
+            builder.Services.ConfigureLogger();
             builder.Services.ConfigureCors();
             builder.Services.ConfigureAuthentication();
             builder.Services.ConfigureAuthorization();

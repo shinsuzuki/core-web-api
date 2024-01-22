@@ -1,9 +1,12 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using mvc_api.Base;
 using mvc_api.Models.Response;
 using mvc_api.Util.Logger;
+using mvc_api.Filter;
+using System.Xml.Linq;
 
 namespace mvc_api.Controllers.v1
 {
@@ -11,10 +14,10 @@ namespace mvc_api.Controllers.v1
     [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
+    [TypeFilter(typeof(GlobalExceptionFilter))]
     public class HogeController : ApiControllerBase
     {
         private readonly IConfiguration _configuration;
-
         private readonly ILoggerManager _logger;
 
         public HogeController(IConfiguration configuration, ILoggerManager logger)
@@ -27,14 +30,14 @@ namespace mvc_api.Controllers.v1
         [Authorize(Roles = "AnotherRole")]
         public IActionResult AnotherRole()
         {
-            System.Diagnostics.Debug.WriteLine("Hoge/List ====> AnotherRole"+ _configuration["MyTest:Value"]);
+            _logger.LogDebug("Hoge ====> AnotherRole" + _configuration["MyTest:Value"]);
             return Ok();
         }
 
         [HttpGet("NoRole")]
         public IActionResult NoRole()
         {
-            System.Diagnostics.Debug.WriteLine("Hoge/List ====> NoRole");
+            _logger.LogDebug("Hoge ====> NoRole");
             return Ok();
         }
 
@@ -42,14 +45,14 @@ namespace mvc_api.Controllers.v1
         [Authorize(Roles = "admin")]
         public IActionResult AdminOnly()
         {
-            System.Diagnostics.Debug.WriteLine("Hoge/List ====> AdminOnly");
+            _logger.LogDebug("Hoge ====> AdminOnly");
             return Ok();
         }
 
         [HttpGet("CheckParams")]
         public IActionResult CheckParams(string name, string city)
         {
-            System.Diagnostics.Debug.WriteLine($"====> {name} - {city}");
+            _logger.LogDebug($"Hoge ====> CheckParams, {name} - {city}");
             return Ok();
         }
 
@@ -57,15 +60,21 @@ namespace mvc_api.Controllers.v1
         [HttpGet("CheckAdminPolicy")]
         public IActionResult CheckAdminPolicy()
         {
-            System.Diagnostics.Debug.WriteLine("====> CheckAdminPolicy");
+            _logger.LogDebug($"Hoge ====> CheckAdminPolicy");
             return Ok();
         }
-
 
         [HttpGet("Person")]
         public IActionResult Person()
         {
             return this.ToResult<Person>(new Person { fullName = "sato", Old = 20 });
+        }
+
+        [HttpGet("TestException")]
+        public IActionResult TestException()
+        {
+            throw new Exception("myException!");
+            return Ok();
         }
 
     }

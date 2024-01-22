@@ -37,6 +37,9 @@ Get https://localhost:7055/api/v1/Hoge/CheckAdminPolicy
 
 Get https://localhost:7055/api/v1/Hoge/Person
 
+###
+
+Get https://localhost:7055/api/v1/Hoge/TestException
 
 
 

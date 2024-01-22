@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Asp.Versioning;
 using mvc_api.Models.Request;
 using mvc_api.Util.Logger;
+using mvc_api.Filter;
 
 namespace mvc_api.Controllers.v1
 {
@@ -13,6 +14,7 @@ namespace mvc_api.Controllers.v1
     [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
+    [TypeFilter(typeof(GlobalExceptionFilter))]
     public class AccountController : ControllerBase
     {
         private readonly ILoggerManager _logger;

@@ -4,14 +4,14 @@ using System.Xml.Linq;
 
 namespace mvc_api.Models.Request
 {
-    [CustomValidation(typeof(User), "CheckNameAndPassBakaWord")]
-    public class User
+    [CustomValidation(typeof(RequestUser), "CheckNameAndPassBakaWord")]
+    public class RequestUser
     {
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(20, ErrorMessage = "{0} length cant'be more than {1}.")]
         [JsonPropertyName("login_name")]
         [Display(Name = "login_name")]
-        [CustomValidation(typeof(User), "CheckNgWord")]
+        [CustomValidation(typeof(RequestUser), "CheckNgWord")]
         public string? LoginName { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
@@ -37,7 +37,7 @@ namespace mvc_api.Models.Request
         /// <summary>
         /// 複数プロパティ検証
         /// </summary>
-        public static ValidationResult CheckNameAndPassBakaWord (User? user)
+        public static ValidationResult CheckNameAndPassBakaWord (RequestUser? user)
         {
             if ((user?.LoginName?.ToLower().Contains("bakaword") ?? false)
                     && (user.Password?.ToLower().Contains("bakaword") ?? false))

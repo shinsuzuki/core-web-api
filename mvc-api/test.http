@@ -6,8 +6,8 @@ POST https://localhost:7055/api/v1/Account/Login HTTP/1.1
 Content-Type: application/json
 
 {
-    "login_name": "sato",
-    "password": "password"
+    "login_name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "password": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 
 ###
@@ -40,6 +40,11 @@ Get https://localhost:7055/api/v1/Hoge/Person
 ###
 
 Get https://localhost:7055/api/v1/Hoge/TestException
+
+
+###
+
+Get https://localhost:7055/api/v1/Hoge/NotFoundAPI
 
 
 

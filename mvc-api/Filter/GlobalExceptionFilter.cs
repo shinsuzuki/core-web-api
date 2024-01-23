@@ -4,6 +4,9 @@ using System.Reflection.Metadata;
 using System.Security.Claims;
 using NLog;
 using mvc_api.Util.Logger;
+using mvc_api.Models.Response;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace mvc_api.Filter
 {
@@ -11,12 +14,36 @@ namespace mvc_api.Filter
     {
         ILoggerManager _logger; 
 
+
         public GlobalExceptionFilter(ILoggerManager logger)
         {
             _logger = logger;
         }
 
+
         public void OnException(ExceptionContext context)
+        {
+            this.OutputExceptionLog(context);
+            this.SetExceptionResult(context);
+        }
+
+
+        private void SetExceptionResult(ExceptionContext context)
+        {
+            var errorResponse = new ErrorResponse();
+#if DEBUG
+            errorResponse.AddErrorList(HttpStatusCode.InternalServerError, "500100", context.Exception.ToString());
+#else
+            errorResponse.AddErrorList(HttpStatusCode.InternalServerError, "500100", "Internal Server Error");
+#endif
+            context.Result = new ObjectResult(errorResponse)
+            {
+                StatusCode = 500
+            };
+        }
+
+
+        private void OutputExceptionLog(ExceptionContext context)
         {
             try
             {

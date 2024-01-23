@@ -68,7 +68,12 @@ namespace mvc_api.Controllers.v1
         [HttpGet("Person")]
         public IActionResult Person()
         {
-            return this.ToResult<Person>(new Person { fullName = "sato", Old = 20 });
+            return this.ToResult<ResponsePerson>(new()
+            {
+                Status = 200,
+                fullName = "sato",
+                Old = 20
+            });
         }
 
         [HttpGet("TestException")]

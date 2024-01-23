@@ -19,7 +19,9 @@ namespace mvc_api
             builder.Services.ConfigureAuthorization();
             builder.Services.ConfigureApiVersioning();
             builder.Services.ConfigureFilter();
+            builder.Services.ConfigureApiBehaviorOptions();
             builder.Services.ConfigureSwagger();
+
 
 
             // app, Configure the HTTP request pipeline.

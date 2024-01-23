@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using mvc_api.Filter;
 using mvc_api.Util.Logger;
@@ -109,6 +110,17 @@ namespace mvc_api.Extensions
         public static void ConfigureLogger(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
+
+        /// <summary>
+        /// APIの振る舞い設定
+        /// </summary>
+        public static void ConfigureApiBehaviorOptions(this IServiceCollection services)
+        {
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
         }
 
 

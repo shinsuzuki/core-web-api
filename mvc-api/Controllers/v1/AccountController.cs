@@ -28,7 +28,7 @@ namespace mvc_api.Controllers.v1
         [AllowAnonymous]
         [HttpPost("Login")]
         //public async Task<IActionResult> Login(string loginName, string password)
-        public async Task<IActionResult> Login(User? user)
+        public async Task<IActionResult> Login(RequestUser? user)
         {
             _logger.LogDebug(this.ActionInfo() + "login");
 

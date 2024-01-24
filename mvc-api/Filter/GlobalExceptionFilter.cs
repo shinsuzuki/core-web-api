@@ -33,9 +33,9 @@ namespace mvc_api.Filter
 
         private void SetExceptionResult(ExceptionContext context)
         {
-            var errorResponse = new ErrorResponse();
+            var errorResponse = new ErrorResponse(HttpStatusCode.InternalServerError);
 #if DEBUG
-            errorResponse.AddErrorList(HttpStatusCode.InternalServerError, "500100", context.Exception.ToString());
+            errorResponse.AddError("500100", context.Exception.ToString());
 #else
             errorResponse.AddErrorList(HttpStatusCode.InternalServerError, "500100", "Internal Server Error");
 #endif
@@ -57,7 +57,7 @@ namespace mvc_api.Filter
                     $"Controller:{controllerActionDescriptor!.ControllerName} " +
                     $"Action:{controllerActionDescriptor.ActionName} " +
                     $"User:{(name ?? "No User")} " +
-                    "予期せぬ例外が発生しました。" + Environment.NewLine +
+                    "予期せぬ例外が発生。" + Environment.NewLine +
                     "************************************************" + Environment.NewLine +
                     $"{context.Exception}" + Environment.NewLine +
                     "************************************************"
@@ -65,7 +65,7 @@ namespace mvc_api.Filter
             }
             catch (Exception ex)
             {
-                _logger.LogError("\r\n" + "ログ出力時にエラーが発生しました。" + ex);
+                _logger.LogError("\r\n" + "ログ出力時にエラーが発生。" + ex);
             }
         }
     }

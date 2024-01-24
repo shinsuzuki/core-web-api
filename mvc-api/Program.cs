@@ -6,6 +6,8 @@ using mvc_api.Extensions;
 using mvc_api.Util.Logger;
 using Microsoft.AspNetCore.Mvc.Filters;
 using mvc_api.Filter;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Text.Json;
 
 namespace mvc_api
 {
@@ -39,6 +41,7 @@ namespace mvc_api
 
 
 
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();                   // Swaggerミドルウェアを追加
@@ -47,15 +50,20 @@ namespace mvc_api
             } 
             else
             {
-                app.UseHsts();              // HTTPの代わりにHTTPSを使用するよう指示
+                app.UseHsts();                  // HTTPの代わりにHTTPSを使用するよう指示
             }
 
-            app.UseCors("CorsPolicy");      // CORSを有効化
-            app.UseStaticFiles();           // wwwrootに対して静的コンテンツサービスを登録
-            app.UseHttpsRedirection();      // 強制的に HTTP 要求を HTTPS へリダイレクトします
-            app.UseAuthentication();        // 認証を有効化
-            app.UseAuthorization();         // 認可を有効化
-            app.MapControllers();           // 属性ルーティング コントローラーがマップされます
+            app.UseCors("CorsPolicy");          // CORSを有効化
+            app.UseStaticFiles();               // wwwrootに対して静的コンテンツサービスを登録
+            app.UseHttpsRedirection();          // 強制的に HTTP 要求を HTTPS へリダイレクトします
+            
+            // todo グローバルの例外処理はフィルターが使い勝手が良い
+            // https://www.herlitz.io/2019/05/05/global-exception-handling-asp.net-core/
+            //app.UseExceptionHandler("/error");  // 例外処理、UseHttpsRedirectionの後？
+
+            app.UseAuthentication();            // 認証を有効化
+            app.UseAuthorization();             // 認可を有効化
+            app.MapControllers();               // 属性ルーティング コントローラーがマップされます
             app.Run();
         }
     }

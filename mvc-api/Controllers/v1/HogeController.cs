@@ -39,6 +39,7 @@ namespace mvc_api.Controllers.v1
         {
             _logger.LogDebug(this.ActionInfo() + "Hoge ====> NoRole");
             return Ok();
+            //return Ok(new { test="999", message="test-message" });
         }
 
         [HttpGet("AdminRole")]

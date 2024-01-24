@@ -106,6 +106,8 @@ namespace mvc_api.Extensions
             services.AddControllers(config =>
             {
                 config.Filters.Add<GlobalActionFilter>();
+                // todo グローバルの例外はフィルターが使いやすい
+                // https://www.herlitz.io/2019/05/05/global-exception-handling-asp.net-core/
                 config.Filters.Add<GlobalExceptionFilter>(); 
             });
         }
@@ -125,6 +127,7 @@ namespace mvc_api.Extensions
         {
             services.Configure<ApiBehaviorOptions>(options =>
             {
+                // 自動的な400の動作を無効にする
                 options.SuppressModelStateInvalidFilter = true;
             });
         }

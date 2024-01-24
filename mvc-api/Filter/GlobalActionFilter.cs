@@ -39,7 +39,7 @@ namespace mvc_api.Filter
 
         private void SetBadRequestResponse(ActionExecutingContext context)
         {
-            var errorResponse = new ErrorResponse();
+            var errorResponse = new ErrorResponse(HttpStatusCode.BadRequest);
 
             context.ModelState.ToList().ForEach(argument =>
             {
@@ -47,7 +47,7 @@ namespace mvc_api.Filter
                 {
                     argument.Value?.Errors.ToList().ForEach(error =>
                     {
-                        errorResponse.AddErrorList(HttpStatusCode.BadRequest, "400100", error.ErrorMessage);
+                        errorResponse.AddError("400100", error.ErrorMessage);
                     });
                 }
             });

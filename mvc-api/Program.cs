@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using mvc_api.Extensions;
+using mvc_api.Util.Logger;
+using Microsoft.AspNetCore.Mvc.Filters;
+using mvc_api.Filter;
 
 namespace mvc_api
 {
@@ -27,7 +30,7 @@ namespace mvc_api
             // app, Configure the HTTP request pipeline.
             var app = builder.Build();
 
-            // todo İ’èƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚Í•s—vH ©“®‚Å“Ç‚Ü‚ê‚Ä‚¢‚é‚İ‚½‚¢H
+            // todo è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã¯ä¸è¦ï¼Ÿ è‡ªå‹•ã§èª­ã¾ã‚Œã¦ã„ã‚‹ã¿ãŸã„ï¼Ÿ
             //var config = new ConfigurationBuilder()
             //    .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
 
@@ -38,21 +41,21 @@ namespace mvc_api
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();                   // Swaggerƒ~ƒhƒ‹ƒEƒFƒA‚ğ’Ç‰Á
-                app.UseSwaggerUI();                 // Ã“Iƒtƒ@ƒCƒ‹ƒ~ƒhƒ‹ƒEƒFƒA‚ğ—LŒø‰»
-                app.UseDeveloperExceptionPage();    // ŠJ”­Ò—áŠOƒy[ƒW‚ğ—LŒø‰»
+                app.UseSwagger();                   // SwaggerãƒŸãƒ‰ãƒ«ã‚¦ã‚§ã‚¢ã‚’è¿½åŠ 
+                app.UseSwaggerUI();                 // é™çš„ãƒ•ã‚¡ã‚¤ãƒ«ãƒŸãƒ‰ãƒ«ã‚¦ã‚§ã‚¢ã‚’æœ‰åŠ¹åŒ–
+                app.UseDeveloperExceptionPage();    // é–‹ç™ºè€…ä¾‹å¤–ãƒšãƒ¼ã‚¸ã‚’æœ‰åŠ¹åŒ–
             } 
             else
             {
-                app.UseHsts();              // HTTP‚Ì‘ã‚í‚è‚ÉHTTPS‚ğg—p‚·‚é‚æ‚¤w¦
+                app.UseHsts();              // HTTPã®ä»£ã‚ã‚Šã«HTTPSã‚’ä½¿ç”¨ã™ã‚‹ã‚ˆã†æŒ‡ç¤º
             }
 
-            app.UseCors("CorsPolicy");      // CORS‚ğ—LŒø‰»
-            app.UseStaticFiles();           // wwwroot‚É‘Î‚µ‚ÄÃ“IƒRƒ“ƒeƒ“ƒcƒT[ƒrƒX‚ğ“o˜^
-            app.UseHttpsRedirection();      // ‹­§“I‚É HTTP —v‹‚ğ HTTPS ‚ÖƒŠƒ_ƒCƒŒƒNƒg‚µ‚Ü‚·
-            app.UseAuthentication();        // ”FØ‚ğ—LŒø‰»
-            app.UseAuthorization();         // ”F‰Â‚ğ—LŒø‰»
-            app.MapControllers();           // ‘®«ƒ‹[ƒeƒBƒ“ƒO ƒRƒ“ƒgƒ[ƒ‰[‚ªƒ}ƒbƒv‚³‚ê‚Ü‚·
+            app.UseCors("CorsPolicy");      // CORSã‚’æœ‰åŠ¹åŒ–
+            app.UseStaticFiles();           // wwwrootã«å¯¾ã—ã¦é™çš„ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ã‚µãƒ¼ãƒ“ã‚¹ã‚’ç™»éŒ²
+            app.UseHttpsRedirection();      // å¼·åˆ¶çš„ã« HTTP è¦æ±‚ã‚’ HTTPS ã¸ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã—ã¾ã™
+            app.UseAuthentication();        // èªè¨¼ã‚’æœ‰åŠ¹åŒ–
+            app.UseAuthorization();         // èªå¯ã‚’æœ‰åŠ¹åŒ–
+            app.MapControllers();           // å±æ€§ãƒ«ãƒ¼ãƒ†ã‚£ãƒ³ã‚° ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãŒãƒãƒƒãƒ—ã•ã‚Œã¾ã™
             app.Run();
         }
     }

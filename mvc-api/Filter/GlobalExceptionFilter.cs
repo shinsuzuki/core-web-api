@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace mvc_api.Filter
 {
+    // todo エラー処理ミドルウェアが推奨されている
+    // https://learn.microsoft.com/ja-jp/aspnet/core/mvc/controllers/filters?view=aspnetcore-8.0
+
     public class GlobalExceptionFilter : IExceptionFilter
     {
         ILoggerManager _logger; 

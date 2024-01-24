@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using mvc_api.Filter;
+using mvc_api.Models.Response;
 using mvc_api.Util.Logger;
 using NLog;
+using System.Net;
+using System.Text.Json;
 
 namespace mvc_api.Extensions
 {
@@ -95,12 +100,13 @@ namespace mvc_api.Extensions
         /// </summary>
         public static void ConfigureFilter(this IServiceCollection services)
         {
-            var provider = services.BuildServiceProvider();
-            var loggerManager = provider.GetRequiredService<ILoggerManager>();
+            //var provider = services.BuildServiceProvider();
+            //var loggerManager = provider.GetRequiredService<ILoggerManager>();
 
             services.AddControllers(config =>
             {
-                config.Filters.Add(new GlobalActionFilter(loggerManager));
+                config.Filters.Add<GlobalActionFilter>();
+                config.Filters.Add<GlobalExceptionFilter>(); 
             });
         }
 
@@ -123,6 +129,37 @@ namespace mvc_api.Extensions
             });
         }
 
+
+        ///// <summary>
+        ///// グローバル例外
+        ///// </summary>
+        //public static void ConfigureExceptionHandler(this WebApplication app, ILoggerManager logger)
+        //{
+        //    app.UseExceptionHandler(appError =>
+        //    {
+        //        appError.Run(async context =>
+        //        {
+        //            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        //            context.Response.ContentType = "application/json";
+        //            var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+        //            if (contextFeature != null)
+        //            {
+        //                logger.LogError($"Something went wrong: {contextFeature.Error}");
+
+        //                var errorResponse = new ErrorResponse();
+        //                errorResponse.AddErrorList(HttpStatusCode.InternalServerError, "500100", contextFeature.Error.ToString());
+
+        //                //await context.Response.WriteAsync(new ErrorDetails()
+        //                //{
+        //                //    StatusCode = context.Response.StatusCode,
+        //                //    Message = "Internal Server Error.",
+        //                //}.ToString());
+
+        //                await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+        //            }
+        //        });
+        //    });
+        //}
 
         ///// <summary>
         ///// IIS設定

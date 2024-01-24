@@ -15,7 +15,6 @@ namespace mvc_api.Controllers.v1
     [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [TypeFilter(typeof(GlobalExceptionFilter))]
     public class AccountController : ApiControllerBase
     {
         private readonly ILoggerManager _logger;

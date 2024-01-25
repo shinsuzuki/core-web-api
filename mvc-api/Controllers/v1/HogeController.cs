@@ -8,6 +8,9 @@ using mvc_api.Util.Logger;
 using mvc_api.Filter;
 using System.Xml.Linq;
 using System.Security.Claims;
+using mvc_api.Services;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace mvc_api.Controllers.v1
 {
@@ -19,11 +22,13 @@ namespace mvc_api.Controllers.v1
     {
         private readonly IConfiguration _configuration;
         private readonly ILoggerManager _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HogeController(IConfiguration configuration, ILoggerManager logger)
+        public HogeController(IConfiguration configuration, ILoggerManager logger, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("AnotherRole")]
@@ -73,6 +78,12 @@ namespace mvc_api.Controllers.v1
             //HttpContext.Response.Cookies.Append("actionPersonCookie2", "person_abc123");
             //HttpContext.Response.Cookies.Append("actionPersonCookie3", "person_abc123");
             //HttpContext.Response.Cookies.Append("actionPersonCookie3", "person_abc123");
+
+            // HttpContextを使いたい
+            // https://stayg.jpn.org/wp/?page_id=254
+            // https://stackoverflow.com/questions/37371264/invalidoperationexception-unable-to-resolve-service-for-type-microsoft-aspnetc
+            var s = new PersonService(_httpContextAccessor);
+            Debug.WriteLine(s.GetLoginName());
 
             return this.ToResult<ResponsePerson>(new()
             {

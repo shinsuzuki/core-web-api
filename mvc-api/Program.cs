@@ -28,6 +28,9 @@ namespace mvc_api
             builder.Services.ConfigureApiBehaviorOptions();
             builder.Services.ConfigureSwagger();
 
+            // HttpContextAccessorを各クラスへDIできるようにします→ 同等のコード：services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddHttpContextAccessor();
+
 
 
             // app, Configure the HTTP request pipeline.

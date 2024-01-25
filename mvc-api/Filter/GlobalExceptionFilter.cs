@@ -37,7 +37,7 @@ namespace mvc_api.Filter
 #if DEBUG
             errorResponse.AddError("500100", context.Exception.ToString());
 #else
-            errorResponse.AddErrorList(HttpStatusCode.InternalServerError, "500100", "Internal Server Error");
+            errorResponse.AddError("500100", "Internal Server Error");
 #endif
             context.Result = new ObjectResult(errorResponse)
             {

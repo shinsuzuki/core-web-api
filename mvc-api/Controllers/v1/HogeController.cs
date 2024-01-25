@@ -68,6 +68,12 @@ namespace mvc_api.Controllers.v1
         [HttpGet("Person")]
         public IActionResult Person()
         {
+            // cookie発行TEST
+            //HttpContext.Response.Cookies.Append("actionPersonCookie1", "person_abc123", new CookieOptions { Path="/", HttpOnly=false});
+            //HttpContext.Response.Cookies.Append("actionPersonCookie2", "person_abc123");
+            //HttpContext.Response.Cookies.Append("actionPersonCookie3", "person_abc123");
+            //HttpContext.Response.Cookies.Append("actionPersonCookie3", "person_abc123");
+
             return this.ToResult<ResponsePerson>(new()
             {
                 Status = 200,

@@ -46,7 +46,9 @@ namespace mvc_api.Controllers.v1
                 var principal = new ClaimsPrincipal(identity);
 
                 // 認証クッキーをレスポンスに追加
-                await HttpContext.SignInAsync(principal);
+                //await HttpContext.SignInAsync(principal);
+                // cookieをブラウザで永続化
+                await HttpContext.SignInAsync(principal, new AuthenticationProperties { IsPersistent = true }); 
 
                 return Ok();
 

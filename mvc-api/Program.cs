@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using mvc_api.Extensions;
 using mvc_api.Util.Logger;
+using mvc_api.Config;
 using Microsoft.AspNetCore.Mvc.Filters;
 using mvc_api.Filter;
 using Microsoft.AspNetCore.Diagnostics;
@@ -19,6 +20,7 @@ namespace mvc_api
             // service
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
+            builder.Services.ConfigureMyConfig();
             builder.Services.ConfigureLogger();
             builder.Services.ConfigureCors();
             builder.Services.ConfigureAuthentication();
@@ -30,6 +32,7 @@ namespace mvc_api
 
             // HttpContextAccessorを各クラスへDIできるようにします→ 同等のコード：services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddHttpContextAccessor();
+
 
 
 

@@ -11,6 +11,7 @@ using System.Security.Claims;
 using mvc_api.Services;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using mvc_api.Config;
 
 namespace mvc_api.Controllers.v1
 {
@@ -23,12 +24,15 @@ namespace mvc_api.Controllers.v1
         private readonly IConfiguration _configuration;
         private readonly ILoggerManager _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMyConfig _myConfig;
 
-        public HogeController(IConfiguration configuration, ILoggerManager logger, IHttpContextAccessor httpContextAccessor)
+        public HogeController(IConfiguration configuration, ILoggerManager logger, IHttpContextAccessor httpContextAccessor,
+            IMyConfig myConfig)
         {
             _configuration = configuration;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
+            _myConfig = myConfig;
         }
 
         [HttpGet("AnotherRole")]
@@ -73,6 +77,13 @@ namespace mvc_api.Controllers.v1
         [HttpGet("Person")]
         public IActionResult Person()
         {
+            _logger.LogTrace(this.ActionInfo() + "Hoge ====> Person");
+            _logger.LogDebug(this.ActionInfo() + "Hoge ====> Person");
+            _logger.LogInfo(this.ActionInfo() + "Hoge ====> Person");
+            _logger.LogWarn(this.ActionInfo() + "Hoge ====> Person");
+            _logger.LogError(this.ActionInfo() + "Hoge ====> Person");
+            _logger.LogFatal(this.ActionInfo() + "Hoge ====> Person");
+
             // cookie発行TEST
             //HttpContext.Response.Cookies.Append("actionPersonCookie1", "person_abc123", new CookieOptions { Path="/", HttpOnly=false});
             //HttpContext.Response.Cookies.Append("actionPersonCookie2", "person_abc123");
@@ -82,7 +93,7 @@ namespace mvc_api.Controllers.v1
             // HttpContextを使いたい
             // https://stayg.jpn.org/wp/?page_id=254
             // https://stackoverflow.com/questions/37371264/invalidoperationexception-unable-to-resolve-service-for-type-microsoft-aspnetc
-            var s = new PersonService(_httpContextAccessor);
+            var s = new PersonService(_httpContextAccessor, _myConfig);
             Debug.WriteLine(s.GetLoginName());
 
             return this.ToResult<ResponsePerson>(new()

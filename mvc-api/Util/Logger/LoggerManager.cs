@@ -17,6 +17,11 @@ namespace mvc_api.Util.Logger
             LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
         }
 
+        public void LogTrace(string message)
+        {
+            logger.Trace(message);
+        }
+
         public void LogDebug(string message)
         {
             logger.Debug(message);
@@ -36,6 +41,11 @@ namespace mvc_api.Util.Logger
         {
             logger.Warn(message);
         }
+
+        public void LogFatal(string message)
+        {
+            logger.Fatal(message);
+        } 
     }
 
 }

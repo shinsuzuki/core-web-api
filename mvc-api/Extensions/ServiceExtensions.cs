@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using mvc_api.Config;
 using mvc_api.Filter;
 using mvc_api.Models.Response;
 using mvc_api.Util.Logger;
@@ -132,6 +133,13 @@ namespace mvc_api.Extensions
             });
         }
 
+        /// <summary>
+        /// 設定ファイル
+        /// </summary>
+        public static void ConfigureMyConfig(this IServiceCollection services)
+        {
+            services.AddSingleton<IMyConfig, MyConfig>();
+        }
 
         ///// <summary>
         ///// グローバル例外

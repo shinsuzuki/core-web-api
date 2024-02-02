@@ -33,6 +33,8 @@ namespace mvc_api
             // HttpContextAccessorを各クラスへDIできるようにします→ 同等のコード：services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddHttpContextAccessor();
 
+            // logger,どこでもログ
+            MyLogger.Error("Main_MyLogger test");
 
 
 

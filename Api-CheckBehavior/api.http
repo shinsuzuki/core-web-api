@@ -1,0 +1,3 @@
+﻿####---- test
+#GET https://localhost:7134/api/Home/TestResponse?job=success
+GET https://localhost:7134/api/Home/TestResponse?job=false

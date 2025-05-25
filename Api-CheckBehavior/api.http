@@ -12,6 +12,12 @@ GET https://localhost:7134/api/Home/secondtimeout/5000
 ####---- ループ処理中のタイムアウトのレスポンスをチェック、504を返さない？
 GET https://localhost:7134/api/Home/secondtimeout2
 
+####---- 通常のタイムアウトを兆s
+GET https://localhost:7134/api/Home/Check_NormalTimeout
+
+####---- キャンセルトークンをチェック中
+GET https://localhost:7134/api/Home/Check_CancellationToken
+
 ####---- タイムアウト時のフラグチェック、フラグが変わるがレスポンスを返さない
 GET https://localhost:7134/api/Home/Check_IsCancellationRequested
 

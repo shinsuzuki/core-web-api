@@ -64,6 +64,78 @@ namespace Api_CheckBehavior.Controllers
         }
 
 
+        [HttpGet("Check_NormalTimeout")]
+        public async Task<IActionResult> Check_NormalTimeout()
+        {
+            Console.WriteLine(DateTime.Now.ToString());
+            await Task.Delay(1000 * 180); // 180秒待つ→タイムアウトが発生しない
+            Console.WriteLine(DateTime.Now.ToString());
+
+            return Ok(new CommonResponse<MyResponseData>
+            {
+                IsSuccess = true,
+                Data = new MyResponseData
+                {
+                    ID = 1,
+                    Message = "normal timeout API"
+                }
+            });
+        }
+
+        [HttpGet("Check_CancellationToken")]
+        [RequestTimeout(5000)]
+        public async Task<IActionResult> Check_CancellationToken(CancellationToken ct)
+        {
+            //for (int i = 0; i < 100000; i++)
+            //{
+            //    try
+            //    {
+            //        Console.WriteLine($"loop_{i}_" + ct.IsCancellationRequested.ToString());
+            //        if (ct.IsCancellationRequested)
+            //        {
+            //            // タイムアウトでフラグが変化する
+            //            Console.WriteLine($"loop_{i}_" + ct.IsCancellationRequested.ToString());
+            //            // レスポンスが出力されない？
+            //            return Ok(new CommonResponse<MyResponseData>
+            //            {
+            //                IsSuccess = false,
+            //                Data = new MyResponseData
+            //                {
+            //                    ID = 1,
+            //                    Message = "キャンセルトークンの値を判別 true  API"
+            //                }
+            //            });
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e.ToString());
+            //    }
+            //}
+
+            //await Task.Delay(1000 * 3, ct); // 3秒待つ→504エラー発生
+
+            await Task.Delay(1000 * 1, ct); 
+            await Task.Delay(1000 * 1, ct); 
+            await Task.Delay(1000 * 1, ct); 
+            await Task.Delay(1000 * 1, ct); 
+            await Task.Delay(1000 * 1, ct); 
+            await Task.Delay(1000 * 1, ct); // 6秒待つ→504エラー発生
+
+            // レスポンスが出力されない？
+            return Ok(new CommonResponse<MyResponseData>
+            {
+                IsSuccess = true,
+                Data = new MyResponseData
+                {
+                    ID = 2,
+                    Message = $"キャンセルトークンの値を判別 API"
+                }
+            });
+        }
+
+
+
         [HttpGet("Check_IsCancellationRequested")]
         [RequestTimeout(10)]
         public async Task<IActionResult> Check_IsCancellationRequested(CancellationToken cancellationToken)
@@ -104,15 +176,22 @@ namespace Api_CheckBehavior.Controllers
         }
 
 
+        // ASP.NET Core の要求タイムアウト ミドルウェア
+        // https://learn.microsoft.com/ja-jp/aspnet/core/performance/timeouts?view=aspnetcore-9.0
+        // ミドルウェアでタイムアウトを設定しない規定の場合はタイムアウトは発生しない
         [HttpGet("GetResponse_DisableRequestTimeoutAsync")]
         [DisableRequestTimeout]// ここでRequestTimeoutを無効にする
         public async Task<IActionResult> GetResponse_DisableRequestTimeoutAsync(CancellationToken cancellationToken)
         {
             // タイムアウトを無視
-            for (int i = 0; i < 1000; i++)
-            {
-                Console.WriteLine($"loop_{i}");
-            }
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    Console.WriteLine($"loop_{i}");
+            //}
+            Console.WriteLine(DateTime.Now.ToString());
+            await Task.Delay(1000 * 300);
+            Console.WriteLine(DateTime.Now.ToString());
+
 
             return Ok(new CommonResponse<MyResponseData>
             {

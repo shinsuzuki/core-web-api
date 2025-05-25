@@ -1,11 +1,19 @@
 ﻿####---- test
 #GET http://localhost:5000/api/Home/TestResponse?job=success
-#GET https://localhost:7134/api/Home/TestResponse?job=success
+GET https://localhost:7134/api/Home/TestResponse?job=success
 #GET https://localhost:7134/api/Home/TestResponse?job=false
 
-####---- test
-GET https://localhost:7134/api/Home/twosecondtimeout/1000
+####---- 200のレスポンスを返す
+GET https://localhost:7134/api/Home/secondtimeout/1000
 
-####---- test
-GET https://localhost:7134/api/Home/twosecondtimeout/3000
+####---- Delay中のタイムアウトのレスポンスが504を返す
+GET https://localhost:7134/api/Home/secondtimeout/5000
 
+####---- ループ処理中のタイムアウトのレスポンスをチェック、504を返さない？
+GET https://localhost:7134/api/Home/secondtimeout2
+
+####---- タイムアウト時のフラグチェック、フラグが変わるがレスポンスを返さない
+GET https://localhost:7134/api/Home/Check_IsCancellationRequested
+
+####---- タイムアウト無視
+GET https://localhost:7134/api/Home/GetResponse_DisableRequestTimeoutAsync
